@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_new_message"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/lightgrey"
+    tools:context="com.example.paulshao.mdbsocials.NewPostActivity">
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5029354"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="257dp" />
+
+    <EditText
+        android:id="@+id/eventNameDetail"
+        android:layout_width="226dp"
+        android:layout_height="58dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="11dp"
+        android:background="@drawable/editshape"
+        android:ems="10"
+        android:hint="Event Name"
+        android:inputType="textPersonName"
+        android:padding="10dp"
+        android:textColorHint="@android:color/black"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="@+id/eventPic"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/eventPic" />
+
+    <EditText
+        android:id="@+id/shortDescription"
+        android:layout_width="381dp"
+        android:layout_height="169dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="-2dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/editshape"
+        android:ems="10"
+        android:hint="A Short Description of the Event"
+        android:inputType="textMultiLine"
+        android:padding="10dp"
+        android:textColorHint="@android:color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.08"
+        app:layout_constraintLeft_toLeftOf="@+id/RSVPedTitle"
+        app:layout_constraintRight_toRightOf="@+id/dateDetail"
+        app:layout_constraintTop_toBottomOf="@+id/RSVPed"
+        app:layout_constraintVertical_bias="0.09" />
+
+    <TextView
+        android:id="@+id/dateDetail"
+        android:layout_width="116dp"
+        android:layout_height="57dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/editshape"
+        android:padding="10dp"
+        android:text="2222/22/22"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@android:color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/eventNameDetail"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toRightOf="@+id/eventNameDetail"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/eventNameDetail"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <ImageView
+        android:id="@+id/eventPic"
+        android:layout_width="290dp"
+        android:layout_height="298dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="5dp"
+        android:scaleType="fitXY"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/insertphoto" />
+
+    <TextView
+        android:id="@+id/RSVPedTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="152dp"
+        android:layout_marginLeft="-14dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/editshape"
+        android:padding="5dp"
+        android:text="# RSVPed:     "
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/eventNameDetail"
+        app:layout_constraintTop_toBottomOf="@+id/eventNameDetail"
+        app:layout_constraintVertical_bias="0.09" />
+
+    <TextView
+        android:id="@+id/RSVPed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/editshape"
+        android:padding="5dp"
+        android:text="TextView"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        app:layout_constraintBottom_toBottomOf="@+id/RSVPedTitle"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toRightOf="@+id/RSVPedTitle"
+        app:layout_constraintRight_toRightOf="@+id/eventNameDetail"
+        app:layout_constraintTop_toTopOf="@+id/RSVPedTitle"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <ImageButton
+        android:id="@+id/choosePic"
+        android:layout_width="106dp"
+        android:layout_height="88dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="11dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toRightOf="@+id/eventPic"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/eventPic"
+        app:srcCompat="@drawable/addpicture" />
+
+    <ImageButton
+        android:id="@+id/uploadPic"
+        android:layout_width="106dp"
+        android:layout_height="88dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="7dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toLeftOf="@+id/choosePic"
+        app:layout_constraintRight_toRightOf="@+id/choosePic"
+        app:layout_constraintTop_toBottomOf="@+id/choosePic"
+        app:srcCompat="@drawable/cloudupload" />
+
+    <ImageButton
+        android:id="@+id/saveButton"
+        android:layout_width="106dp"
+        android:layout_height="88dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="9dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@+id/eventPic"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="@+id/uploadPic"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/uploadPic"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/savedata" />
+
+</android.support.constraint.ConstraintLayout>

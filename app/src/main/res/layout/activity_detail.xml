@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/marble"
+    tools:context="com.example.paulshao.mdbsocials.DetailActivity">
+
+    <ImageView
+        android:id="@+id/eventPicture"
+        android:layout_width="407dp"
+        android:layout_height="306dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/ic_launcher" />
+
+    <ImageView
+        android:id="@+id/nameIcon"
+        android:layout_width="54dp"
+        android:layout_height="53dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="-18dp"
+        app:layout_constraintLeft_toLeftOf="@+id/eventPicture"
+        app:layout_constraintTop_toBottomOf="@+id/eventPicture"
+        app:srcCompat="@drawable/event" />
+
+    <TextView
+        android:id="@+id/eventNameDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/editshape"
+        android:padding="5dp"
+        android:text="eventName"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintBottom_toBottomOf="@+id/nameIcon"
+        app:layout_constraintLeft_toRightOf="@+id/nameIcon"
+        app:layout_constraintRight_toLeftOf="@+id/dateIcon"
+        app:layout_constraintTop_toTopOf="@+id/nameIcon"
+        app:layout_constraintVertical_bias="0.615" />
+
+    <TextView
+        android:id="@+id/dateDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="1dp"
+        android:background="@drawable/editshape"
+        android:padding="5dp"
+        android:text="2222/22/22"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintBottom_toBottomOf="@+id/dateIcon"
+        app:layout_constraintHorizontal_bias="0.157"
+        app:layout_constraintLeft_toRightOf="@+id/dateIcon"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/dateIcon"
+        app:layout_constraintVertical_bias="0.75" />
+
+    <ImageView
+        android:id="@+id/dateIcon"
+        android:layout_width="57dp"
+        android:layout_height="53dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="9dp"
+        android:layout_marginTop="69dp"
+        app:layout_constraintBottom_toBottomOf="@+id/eventNameDetail"
+        app:layout_constraintLeft_toRightOf="@+id/eventNameDetail"
+        app:layout_constraintTop_toTopOf="@+id/eventNameDetail"
+        app:layout_constraintVertical_bias="0.895"
+        app:srcCompat="@drawable/date" />
+
+    <ImageView
+        android:id="@+id/desIcon"
+        android:layout_width="62dp"
+        android:layout_height="150dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="58dp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="@+id/nameIcon"
+        app:layout_constraintRight_toLeftOf="@+id/eventNameDetail"
+        app:layout_constraintTop_toBottomOf="@+id/nameIcon"
+        app:srcCompat="@drawable/des" />
+
+    <TextView
+        android:id="@+id/descriptionDetail"
+        android:layout_width="331dp"
+        android:layout_height="148dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="57dp"
+        android:background="@drawable/editshape"
+        android:padding="5dp"
+        android:textColor="@android:color/black"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toRightOf="@+id/desIcon"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dateIcon" />
+
+    <ImageView
+        android:id="@+id/RSVPIcon"
+        android:layout_width="52dp"
+        android:layout_height="57dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/desIcon"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toLeftOf="@+id/eventPicture"
+        app:layout_constraintRight_toRightOf="@+id/nameIcon"
+        app:layout_constraintTop_toBottomOf="@+id/nameIcon"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/star" />
+
+    <TextView
+        android:id="@+id/RSVPDetail"
+        android:layout_width="128dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/editshape"
+        android:padding="5dp"
+        android:text="TextView"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintBottom_toTopOf="@+id/descriptionDetail"
+        app:layout_constraintHorizontal_bias="0.009"
+        app:layout_constraintLeft_toRightOf="@+id/RSVPIcon"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/eventNameDetail"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <CheckBox
+        android:id="@+id/ABC"
+        android:layout_width="187dp"
+        android:layout_height="52dp"
+        android:layout_marginBottom="11dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="0dp"
+        android:background="@drawable/editshape"
+        android:padding="5dp"
+        android:text="Interested"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintBottom_toBottomOf="@+id/RSVPDetail"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toRightOf="@+id/RSVPDetail"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/RSVPDetail"
+        app:layout_constraintVertical_bias="0.0" />
+</android.support.constraint.ConstraintLayout>
