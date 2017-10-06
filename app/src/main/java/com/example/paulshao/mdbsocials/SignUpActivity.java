@@ -18,8 +18,9 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class SignUpActivity extends AppCompatActivity {
+public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
 
+    //initiating all the necessary variables
     private static FirebaseAuth mAuth;
     private static FirebaseAuth.AuthStateListener mAuthListener;
 
@@ -29,11 +30,14 @@ public class SignUpActivity extends AppCompatActivity {
     Button createAccount;
     Button backToLogin;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
+        //locating all the elements and matching them with their
+        // assigned references
         emailInput = (EditText)findViewById(R.id.newEmail);
         passwordInput = (EditText)findViewById(R.id.newPassword);
 
@@ -54,42 +58,35 @@ public class SignUpActivity extends AppCompatActivity {
             }
         };
 
-        createAccount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                attemptCreate();
-            }
-        });
+        createAccount.setOnClickListener(this);
+        backToLogin.setOnClickListener(this);
 
 
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view == createAccount){
+            attemptCreate();
+        }
+        else if (view == backToLogin){
+            setBackToLogin();
+        }
     }
 
     private void attemptCreate(){
         String email = ((EditText) findViewById(R.id.newEmail)).getText().toString();
         String password = ((EditText) findViewById(R.id.newPassword)).getText().toString();
-        mAuth = FirebaseAuth.getInstance();
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        Log.d("ye", "createUserWithEmail:onComplete:" + task.isSuccessful());
-
-                        // If sign in fails, display a message to the user. If sign in succeeds
-                        // the auth state listener will be notified and logic to handle the
-                        // signed in user can be handled in the listener.
-                        if (!task.isSuccessful()) {
-                            Toast.makeText(SignUpActivity.this, "Sign up failed",
-                                    Toast.LENGTH_SHORT).show();
-                        }else {
-                            Intent intent = new Intent(getApplicationContext(), ListActivity.class);
-                            startActivity(intent);
-                        }
-
-                        // ...
-                    }
-                });
+        //Compared with the last-week version, this one uses the Utils class to generalize
+        //the attemptCreate (the one that signs new users up) method (because originally
+        // it takes a huge space (many lines) in the SignUpActivity class.
+        Utils.UtilsattemptCreate(email,password,mAuth,SignUpActivity.this);
     }
 
+    private void setBackToLogin(){
+        Intent intent = new Intent (getApplicationContext(),MainActivity.class);
+        startActivity(intent);
+    }
 
 
 

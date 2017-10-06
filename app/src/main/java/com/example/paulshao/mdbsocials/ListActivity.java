@@ -30,24 +30,28 @@ import java.util.Collections;
 
 public class ListActivity extends AppCompatActivity {
 
+    //initiating the database reference and posts
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("SocialsApp");
     final ArrayList<Post> posts = new ArrayList<>();
     ListAdapter adapter;
 
 
 
-
-    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
+
+        //create recyclerview
         RecyclerView recyclerAdapter = (RecyclerView)findViewById(R.id.recyclerView);
         recyclerAdapter.setHasFixedSize(true);
         recyclerAdapter.setLayoutManager(new LinearLayoutManager(this));
+
+        //set the new adapter with the posts
         adapter = new ListAdapter(getApplicationContext(),posts);
         recyclerAdapter.setAdapter(adapter);
 
+        //button that leads to a new post activity
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,11 +61,14 @@ public class ListActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        //to detect and retrieve once new values/events are added
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("/SocialsApp");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 posts.clear();
+                //load the new post into the temporary arraylist
                 for (DataSnapshot dataSnapshot1: dataSnapshot.getChildren())
                 {
 

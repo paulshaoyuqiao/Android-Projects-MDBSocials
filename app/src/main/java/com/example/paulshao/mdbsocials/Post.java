@@ -9,6 +9,8 @@ import java.net.URI;
  */
 
 public class Post {
+
+    //Attributes of a post object
     String email;
     String eventName;
     String eventPictureURL;
@@ -16,9 +18,9 @@ public class Post {
     int pplRSVPed;
     String key;
     String date;
-    //int postNumber;
 
 
+    //initiating the constructor of the post object
     public Post (String email, String eventName, String eventPictureURL, String shortDescription, int pplRSVPed, String key, String date)
     {
         this.email = email;
@@ -28,14 +30,14 @@ public class Post {
         this.shortDescription = shortDescription;
         this.key = key;
         this.date = date;
-        //this.postNumber = postNumber;
     }
 
-    Post()
-    {
+    //creating an empty constructor
+    Post(){
 
     }
 
+    //the getter and setter methods
     public String getEmail ()
     {
         return email;

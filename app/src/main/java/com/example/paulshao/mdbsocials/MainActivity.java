@@ -1,5 +1,6 @@
 package com.example.paulshao.mdbsocials;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -17,7 +18,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
 
     Button signUpButton;
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         mAuth = FirebaseAuth.getInstance();
         signUpButton = (Button)findViewById(R.id.newAccountButton);
@@ -52,21 +54,22 @@ public class MainActivity extends AppCompatActivity {
 
         };
 
-        signUpButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                signUpMethod();
-            }
-        });
-
-        LoginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                signInMethod();
-            }
-        });
+        signUpButton.setOnClickListener(this);
+        LoginButton.setOnClickListener(this);
 
     }
+    @Override
+    public void onClick(View view) {
+        if (view == signUpButton)
+        {
+            signUpMethod();
+        }
+        else if (view == LoginButton){
+            signInMethod();
+        }
+    }
+
+
 
     //as the user signs in
     @Override
@@ -88,32 +91,7 @@ public class MainActivity extends AppCompatActivity {
     public void signInMethod(){
         String email = ((EditText) findViewById(R.id.editTextEmail)).getText().toString();
         String password = ((EditText) findViewById(R.id.editTextPassword)).getText().toString();
-        if (TextUtils.isEmpty(email)||TextUtils.isEmpty(password)) {
-            Toast.makeText(MainActivity.this,"Email or Password Missing",Toast.LENGTH_LONG).show();
-        }
-        else{
-            mAuth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            Log.d("ye", "signInWithEmail:onComplete:" + task.isSuccessful());
-
-                            // If sign in fails, display a message to the user. If sign in succeeds
-                            // the auth state listener will be notified and logic to handle the
-                            // signed in user can be handled in the listener.
-                            if (!task.isSuccessful()) {
-                                Log.w("ye", "signInWithEmail:failed", task.getException());
-                                Toast.makeText(MainActivity.this, "Sign in failed",
-                                        Toast.LENGTH_SHORT).show();
-                            }
-
-                            else {
-                                Intent intent = new Intent(getApplicationContext(), ListActivity.class);
-                                startActivity(intent);
-                            }
-                        }
-                    });
-        }
+        Utils.utilsLogIn(email,password,mAuth,MainActivity.this);
     }
 
     //sign up method
@@ -122,9 +100,6 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent (getApplicationContext(),SignUpActivity.class);
         startActivity(intent);
     }
-
-
-
 
 
 }
