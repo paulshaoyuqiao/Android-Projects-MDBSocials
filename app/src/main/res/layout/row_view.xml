@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent" android:layout_height="wrap_content">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="@android:color/transparent"
+    app:cardElevation="20dp">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/listParentView"
         android:layout_width="match_parent"
-        android:layout_height="180dp">
+        android:layout_height="180dp"
+        android:background="@color/colorSoftBlue">
 
 
         <ImageView
@@ -27,31 +31,31 @@ android:layout_width="match_parent" android:layout_height="wrap_content">
             android:id="@+id/PostedTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="-9dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="0dp"
             android:text="Posted by"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@android:color/black"
-            android:layout_marginTop="0dp"
-            app:layout_constraintTop_toBottomOf="@+id/EventName"
-            android:layout_marginLeft="-9dp"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="@+id/EventName"
-            android:layout_marginRight="8dp"
             app:layout_constraintRight_toRightOf="@+id/EventName"
-            app:layout_constraintHorizontal_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@+id/EventName" />
 
         <TextView
             android:id="@+id/emailAddress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginBottom="81dp"
             android:layout_marginLeft="8dp"
-            app:layout_constraintLeft_toLeftOf="@+id/PostedTitle"
             android:layout_marginRight="8dp"
-            app:layout_constraintRight_toRightOf="@+id/PostedTitle"
             android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/PostedTitle"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias="0.079"
+            app:layout_constraintLeft_toLeftOf="@+id/PostedTitle"
+            app:layout_constraintRight_toRightOf="@+id/PostedTitle"
+            app:layout_constraintTop_toBottomOf="@+id/PostedTitle"
             app:layout_constraintVertical_bias="0.0" />
 
         <TextView
@@ -75,13 +79,13 @@ android:layout_width="match_parent" android:layout_height="wrap_content">
             android:layout_height="wrap_content"
             android:layout_marginLeft="9dp"
             android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
             android:text="RSVP:"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@android:color/black"
             app:layout_constraintHorizontal_bias="0.024"
             app:layout_constraintLeft_toRightOf="@+id/eventPic"
             app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginTop="8dp"
             app:layout_constraintTop_toBottomOf="@+id/emailAddress" />
 
         <TextView

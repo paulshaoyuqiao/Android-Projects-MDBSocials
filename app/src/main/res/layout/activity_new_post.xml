@@ -5,7 +5,7 @@
     android:id="@+id/activity_new_message"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/lightgrey"
+    android:background="@drawable/try1"
     tools:context="com.example.paulshao.mdbsocials.NewPostActivity">
 
     <android.support.constraint.Guideline
@@ -81,12 +81,11 @@
         android:layout_width="290dp"
         android:layout_height="298dp"
         android:layout_marginLeft="2dp"
-        android:layout_marginStart="2dp"
         android:layout_marginTop="5dp"
         android:scaleType="fitXY"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/insertphoto" />
+        app:srcCompat="@drawable/photoicon" />
 
     <TextView
         android:id="@+id/RSVPedTitle"
@@ -129,40 +128,39 @@
         android:id="@+id/choosePic"
         android:layout_width="106dp"
         android:layout_height="88dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="11dp"
+        android:background="@android:color/transparent"
         android:scaleType="fitCenter"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toRightOf="@+id/eventPic"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/eventPic"
-        app:srcCompat="@drawable/addpicture" />
+        app:srcCompat="@drawable/cameraicon" />
 
     <ImageButton
         android:id="@+id/uploadPic"
         android:layout_width="106dp"
         android:layout_height="88dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="7dp"
+        android:background="@android:color/transparent"
         android:scaleType="fitCenter"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="@+id/choosePic"
         app:layout_constraintRight_toRightOf="@+id/choosePic"
         app:layout_constraintTop_toBottomOf="@+id/choosePic"
-        app:srcCompat="@drawable/cloudupload" />
+        app:srcCompat="@drawable/cloudicon" />
 
     <ImageButton
         android:id="@+id/saveButton"
         android:layout_width="106dp"
         android:layout_height="88dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="9dp"
+        android:background="@android:color/transparent"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="@+id/eventPic"
         app:layout_constraintHorizontal_bias="0.0"
@@ -170,25 +168,24 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/uploadPic"
         app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/savedata" />
+        app:srcCompat="@drawable/saveicon" />
 
     <ImageButton
         android:id="@+id/picDate"
         android:layout_width="58dp"
         android:layout_height="46dp"
-        android:layout_marginBottom="0dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginRight="38dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="8dp"
+        android:background="@android:color/transparent"
+        android:onClick="showDatePickerDialog"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toTopOf="@+id/shortDescription"
-        app:layout_constraintHorizontal_bias="0.6"
-        app:layout_constraintLeft_toLeftOf="@+id/dateDetail"
         app:layout_constraintRight_toRightOf="@+id/dateDetail"
+        app:layout_constraintStart_toStartOf="@+id/dateDetail"
         app:layout_constraintTop_toBottomOf="@+id/dateDetail"
-        app:layout_constraintVertical_bias="0.7"
-        android:onClick="showDatePickerDialog"
-        app:srcCompat="@drawable/schedule" />
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/calendaricon" />
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -197,20 +194,12 @@
         android:layout_height="234dp"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
+        android:background="@drawable/progress"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/shortDescription"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.516"
-        android:background="@drawable/progress"/>
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="2222/22/22"
-        tools:layout_editor_absoluteX="-5dp"
-        tools:layout_editor_absoluteY="295dp" />
+        app:layout_constraintVertical_bias="0.516" />
 
 </android.support.constraint.ConstraintLayout>

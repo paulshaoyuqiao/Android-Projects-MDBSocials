@@ -1,11 +1,16 @@
 package com.example.paulshao.mdbsocials;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Environment;
+import android.os.StrictMode;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +18,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -35,6 +41,7 @@ import com.google.firebase.storage.UploadTask;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 
@@ -47,6 +54,7 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
     private DatabaseReference databaseReference;
     private Uri uri = null;
     private TextView dateView;
+    private static final int CAM_REQUEST=1313;
 
     ImageView eventPic;
     ImageButton picDate;
@@ -94,6 +102,8 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
         mDataRef = FirebaseDatabase.getInstance().getReference();
         storageReference = FirebaseStorage.getInstance().getReference();
         databaseReference = FirebaseDatabase.getInstance().getReference().child("SocialsApp");
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
 
 
 
@@ -106,18 +116,45 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     @Override
-    public void onClick(View view) {
+    public void onClick(final View view) {
         //if the clicked button is to choose a picture
         if (view == choosePic) {
-            Utils.UtilshowPicChooser(NewPostActivity.this,pickImageREQUEST);
+            CharSequence colors[] = new CharSequence[] {"Select from Gallery", "Take a picture(doesn't work ;_;)"};
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(NewPostActivity.this);
+            builder.setTitle("Select an Import Option");
+            builder.setItems(colors, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            //final int request = 111;
+                            switch (which) {
+                                case 0:
+                                    Utils.UtilshowPicChooser(NewPostActivity.this, pickImageREQUEST);
+                                    break;
+                                case 1:
+                                    btnTakePhotoClicker btnTakePhotoClicker = new btnTakePhotoClicker();
+                                    btnTakePhotoClicker.onClick(view);
+
+                            }
+                        }
+                    });
+            builder.show();
         }
         //if the clicked button is to upload all the information
         else if (view == uploadPic) {
             //Compared with the last-week version, this one uses the Utils class to generalize
             //the transmit method (because originally it takes a huge space (many lines) in the
             //newPostActivity class.
+            Toast.makeText(getApplicationContext(),"Make sure you enter the name, description, date, and upload the picture"
+                    ,Toast.LENGTH_LONG).show();
+            if (uri == null){
+                Toast.makeText(getApplicationContext(),"Make sure you actually upload a picture",Toast.LENGTH_LONG).show();
+            }
+            else{
+                ArrayList<String> attendance = new ArrayList<>();
+                attendance.add("default");
             Utils.transmit(loadingProgress,eventPic,databaseReference,eventName,
-                    shortDescription,date,mAuth,pplRSVPed,uri,NewPostActivity.this,storageReference);
+                    shortDescription,date,mAuth,pplRSVPed,uri,NewPostActivity.this,storageReference,attendance);}
         }
 
         //if the clicked button is to save the data and go to the mainfeed activity
@@ -172,7 +209,29 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
             uri = data.getData();
             eventPic = (ImageView)findViewById(R.id.eventPic);
             eventPic.setImageURI(uri);
+        }
+         if (requestCode == CAM_REQUEST && resultCode == RESULT_OK) {
+                if (data!=null){
+                //Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+                //eventPic.setImageBitmap(bitmap);
+                Bundle bundle = data.getExtras();
+                uri = uriSavedImage;
+                    eventPic = (ImageView)findViewById(R.id.eventPic);
+                    eventPic.setImageURI(uri);}
+                //uri = Utils.bitmapToUriConverter(bitmap,NewPostActivity.this);
+            }
 
+    }
+    Uri uriSavedImage;
+    class btnTakePhotoClicker implements Button.OnClickListener{
+
+        @Override
+        public void onClick(View view) {
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            uriSavedImage = Uri.fromFile(new File(Environment.getExternalStorageDirectory() + "/photo1.jpg"));
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, uriSavedImage);
+            //startActivityForResult(camera, 1);
+            startActivityForResult(intent,CAM_REQUEST);
 
         }
     }

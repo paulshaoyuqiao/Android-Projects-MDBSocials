@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/marble"
+    android:background="@drawable/snowmountain"
     tools:context="com.example.paulshao.mdbsocials.DetailActivity">
 
     <ImageView

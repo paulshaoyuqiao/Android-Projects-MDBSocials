@@ -1,13 +1,20 @@
 package com.example.paulshao.mdbsocials;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -29,6 +36,12 @@ import com.google.firebase.storage.UploadTask;
 import org.w3c.dom.Text;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.util.ArrayList;
+import java.util.Random;
+
+import static android.support.v4.app.ActivityCompat.startActivityForResult;
 
 /**
  * Created by paulshao on 10/4/17.
@@ -113,13 +126,49 @@ public class Utils {
         activity.startActivityForResult(Intent.createChooser(intent, "Select Picture"), pickImageREQUEST);
     }
 
+    public static Uri bitmapToUriConverter(Bitmap mBitmap, Activity activity) {
+        Uri uri = null;
+        try {
+            final BitmapFactory.Options options = new BitmapFactory.Options();
+            // Calculate inSampleSize
+            options.inSampleSize = 1;
+
+            // Decode bitmap with inSampleSize set
+            options.inJustDecodeBounds = false;
+            Bitmap newBitmap = Bitmap.createScaledBitmap(mBitmap, 200, 200,
+                    true);
+            File file = new File(activity.getFilesDir(), "Image"
+                    + new Random().nextInt() + ".jpeg");
+            FileOutputStream out = activity.openFileOutput(file.getName(),
+                    Context.MODE_WORLD_READABLE);
+            newBitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+            out.flush();
+            out.close();
+            //get absolute path
+            String realPath = file.getAbsolutePath();
+            File f = new File(realPath);
+            uri = Uri.fromFile(f);
+
+        } catch (Exception e) {
+            Log.e("Your Error Message", e.getMessage());
+        }
+        return uri;
+    }
+
+    public static Uri alternativeUriConverter(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
+    }
+
     //This general method intends on transmitting all the data in a new post to the firebase, with a generated key
     //as the identifier of this specific post for future retrieval and usage.
     public static void transmit(final ProgressBar loadingProgress, ImageView eventPic,
                                 final DatabaseReference databaseReference, TextView eventName,
                                 TextView shortDescription, TextView date, FirebaseAuth mAuth,
                                 int pplRSVPed, final Uri uri, final Activity activity,
-                                final StorageReference storageReference){
+                                final StorageReference storageReference, ArrayList<String> arrayList){
         loadingProgress.setVisibility(View.VISIBLE);
         eventPic.setDrawingCacheEnabled(true);
         eventPic.buildDrawingCache();
@@ -131,7 +180,7 @@ public class Utils {
 
         StorageReference storageRef = FirebaseStorage.getInstance().getReferenceFromUrl("gs://mdbsocials-c8ba2.appspot.com");
 
-
+        final ArrayList<String> attendance =  new ArrayList<String>();
         final String id = databaseReference.child("SocialsApp").push().getKey();
         StorageReference storageReference1 = storageRef.child(id+".png");
         final String eventNameTitle = eventName.getText().toString().trim();
@@ -139,6 +188,7 @@ public class Utils {
         final String dateTitle = date.getText().toString();
         final String emailTitle = mAuth.getCurrentUser().getEmail();
         final int numRSVPTitle = pplRSVPed;
+
 
         storageReference1.putFile(uri).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -151,10 +201,13 @@ public class Utils {
                 if (!TextUtils.isEmpty(eventNameTitle)&&!TextUtils.isEmpty(shortDescriptionTitle)
                         &&!TextUtils.isEmpty(dateTitle)&&!TextUtils.isEmpty(emailTitle)&&!(numRSVPTitle>10000)){
                     StorageReference filepath = storageReference.child("PostImage").child(uri.getLastPathSegment());
+                    ArrayList<String> Attendance = new ArrayList<String>();
+                    Attendance.add("1");
+                    final ArrayList<String> attendance = Attendance;
                     filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                    Post post = new Post (emailTitle,eventNameTitle,id,shortDescriptionTitle,numRSVPTitle,id,dateTitle);
+                                    Post post = new Post (emailTitle,eventNameTitle,id,shortDescriptionTitle,numRSVPTitle,id,dateTitle,attendance);
                             databaseReference.child(id).setValue(post);
                             Toast.makeText(activity,"Upload Complete",Toast.LENGTH_LONG).show();
                             loadingProgress.setVisibility(View.INVISIBLE);

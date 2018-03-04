@@ -4,5 +4,6 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorComplimentary">#ADFF2F</color>
-    <color name="colorComplimentary2">#FFFACD</color>
+    <color name="colorComplimentary2">#f0e36b</color>
+    <color name="colorSoftBlue">#55ffffff</color>
 </resources>

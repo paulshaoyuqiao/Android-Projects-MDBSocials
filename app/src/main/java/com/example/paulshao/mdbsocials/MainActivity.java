@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     Button signUpButton;
     Button LoginButton;
+    public static String email;
 
     private static FirebaseAuth mAuth;
     private  FirebaseAuth.AuthStateListener mAuthListener;
@@ -89,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     //sign in method
     public void signInMethod(){
-        String email = ((EditText) findViewById(R.id.editTextEmail)).getText().toString();
+        email = ((EditText) findViewById(R.id.editTextEmail)).getText().toString();
         String password = ((EditText) findViewById(R.id.editTextPassword)).getText().toString();
         Utils.utilsLogIn(email,password,mAuth,MainActivity.this);
     }

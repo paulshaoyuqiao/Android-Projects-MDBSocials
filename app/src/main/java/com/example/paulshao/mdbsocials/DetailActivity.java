@@ -48,8 +48,12 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     String dateString;
     ImageView nameIcon;
     ImageView desIcon;
+    ArrayList<String> eventLike;
+
 
     Post data;
+    boolean checked;
+    boolean unchecked;
 
 
 
@@ -70,9 +74,19 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         Intent intent = getIntent();
         eventKey = intent.getStringExtra("key");
 
+        checked = PreferenceManager.getDefaultSharedPreferences(this)
+                .getBoolean("checkBox1", true);
+        unchecked = PreferenceManager.getDefaultSharedPreferences(this)
+                .getBoolean("checkBox1", false);
+
+        //p.attendance.add("1");
+
+
+
+
 
         //generate the reference to the data based on the key and output them to the layout
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("/SocialsApp").child(eventKey);
+        final DatabaseReference ref = FirebaseDatabase.getInstance().getReference("/SocialsApp").child(eventKey);
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -84,6 +98,10 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
                 date.setText(data.date);
                 description.setText(data.shortDescription);
                 eventPicString = data.eventPictureURL;
+                eventLike = data.attendance;
+                emailString = data.email;
+                //eventLike.add("default");
+
 
 
 
@@ -103,6 +121,14 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
 
 
         //track if the user clicks the checkbox
+        if (eventLike == null || !(eventLike.contains(emailString))){
+            Toast.makeText(DetailActivity.this,"eventLike is null", Toast.LENGTH_LONG).show();
+            Interested.setChecked(false);
+        }
+        else if(eventLike.contains(emailString)){
+            Interested.setChecked(true);
+        }
+
         Interested.setOnClickListener(this);
 
 
@@ -110,12 +136,14 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
 
     }
 
+
+
     private void onBoxChecked(DatabaseReference postRef) {
         postRef.runTransaction(new Transaction.Handler() {
             @Override
 
             public Transaction.Result doTransaction(MutableData mutableData) {
-                Post p = mutableData.getValue(Post.class);
+                final Post p = mutableData.getValue(Post.class);
                 if (p == null) {
                     return Transaction.success(mutableData);
                 }
@@ -124,14 +152,23 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
                     // Unstar the post and remove self from stars
                     p.pplRSVPed = p.pplRSVPed + 1;
                     RSVP.setText(""+ data.pplRSVPed);
-                    //boolean checked = Interested.isChecked();
+                    PreferenceManager.getDefaultSharedPreferences(DetailActivity.this).edit()
+                            .putBoolean("checkBox1", checked).apply();
+                    if (!(eventLike.contains(emailString))){
+                    eventLike.add(emailString);}
+                    p.setAttendance(eventLike);
+                    boolean checked = Interested.isChecked();
 
                 }
                 else if (!(Interested.isChecked())){
                     // Star the post and add self to stars
                     p.pplRSVPed = p.pplRSVPed - 1;
                     RSVP.setText(""+data.pplRSVPed);
-                    //boolean checked = Interested.isChecked();
+                    boolean checked = Interested.isChecked();
+                    if (eventLike.contains(emailString)){
+                      eventLike.remove(MainActivity.email);
+                    }
+                    p.setAttendance(eventLike);
 
                 }
 
@@ -155,10 +192,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
 
         }
 
-
-
-
-    }
+}
 
 
 
